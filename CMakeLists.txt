@@ -7,4 +7,7 @@ add_executable(main main.cpp)
 set(CMAKE_CXX_FLAGS "-std=c++17")
 
 set(OPENSSL_USE_STATIC_LIBS TRUE)
+
 find_package(OpenSSL REQUIRED)
+
+target_link_libraries(main crypto)

@@ -37,7 +37,7 @@ auto encrypt(
     const key<key_size> &key,
     const byte_stream &raw_data,
     const iv &iv
-             ) -> byte_stream {
+) -> byte_stream {
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
 
     if (ctx == nullptr) {
@@ -91,7 +91,7 @@ auto decrypt(
     const key<key_size> &key,
     const byte_stream &encrypted_data,
     const iv &iv
-             ) -> byte_stream {
+) -> byte_stream {
     EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
 
     if (ctx == nullptr) {

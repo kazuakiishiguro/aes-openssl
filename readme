@@ -1,1 +1,11 @@
 based on this article : https://moba1.hatenablog.com/entry/2019/12/04/024145
+
+build:
+	mkdir build && cd $_ && cmake .. && make
+
+usage:
+	encryption test
+	iv="$(head -c 16 /dev/urandom | od -x -A n | tr -d ' \n')"; key="$(head -c 32 /dev/urandom | od -x -A n | tr -d ' \n')"; head -c 1000 /dev/urandom | base64 | tr -d '\n' | xargs echo | tee /dev/stderr | ./main -i "$iv" -k "$key" enc | openssl aes-256-cbc -nosalt -d -iv "$iv" -K "$key" | xargs echo
+
+	decription test
+	iv="$(head -c 16 /dev/urandom | od -x -A n | tr -d ' \n')"; key="$(head -c 32 /dev/urandom | od -x -A n | tr -d ' \n')"; head -c 1000 /dev/urandom | base64 | tr -d '\n' | xargs echo | tee /dev/stderr | openssl aes-256-cbc -nosalt -e -iv "$iv" -K "$key" | ./main -i "$iv" -k "$key" dec | xargs echo
